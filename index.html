@@ -583,12 +583,19 @@
           <div class="helper">
             <span>Probleme beim Anmelden?</span>
             <button id="forgot-btn" type="button">Benutzernamen vergessen?</button>
+            <button id="resetpw-btn" type="button" style="margin-left: 0.5rem;">Passwort zurücksetzen</button>
           </div>
           <div class="actions">
             <button type="submit" class="primary">Anmelden</button>
           </div>
         </form>
         <div class="message" id="feedback"></div>
+      <div id="resetpw-container" class="hidden" style="margin-top:1.5rem;">
+        <label for="resetpw-email">E-Mail-Adresse zum Zurücksetzen:</label>
+        <input id="resetpw-email" type="email" placeholder="z. B. max@beispiel.de" style="width:100%;margin-bottom:0.7rem;" />
+        <button id="resetpw-send" class="secondary" type="button">Zurücksetzen anfordern</button>
+        <div id="resetpw-message" style="margin-top:0.7rem;color:var(--success);"></div>
+      </div>
       </section>
 
       <section class="card file-explorer" id="file-explorer">

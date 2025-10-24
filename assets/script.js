@@ -45,6 +45,11 @@ const feedback = document.getElementById('feedback');
 const fileExplorer = document.getElementById('file-explorer');
 const loginCard = document.getElementById('login-card');
 const forgotBtn = document.getElementById('forgot-btn');
+const resetPwBtn = document.getElementById('resetpw-btn');
+const resetPwContainer = document.getElementById('resetpw-container');
+const resetPwEmail = document.getElementById('resetpw-email');
+const resetPwSend = document.getElementById('resetpw-send');
+const resetPwMessage = document.getElementById('resetpw-message');
 const modal = document.getElementById('support-modal');
 const backdrop = document.getElementById('modal-backdrop');
 const modalClose = document.getElementById('modal-close');
@@ -57,6 +62,32 @@ const logoutBtn = document.getElementById('logout-btn');
 // ============================================
 // Login Logic
 // ============================================
+
+// Passwort zurücksetzen UI-Logik
+if (resetPwBtn) {
+  resetPwBtn.addEventListener('click', () => {
+    resetPwContainer.classList.remove('hidden');
+    resetPwMessage.textContent = '';
+    resetPwEmail.value = '';
+    resetPwEmail.focus();
+  });
+}
+
+if (resetPwSend) {
+  resetPwSend.addEventListener('click', () => {
+    const email = resetPwEmail.value.trim();
+    if (!email || !email.includes('@')) {
+      resetPwMessage.style.color = 'var(--danger)';
+      resetPwMessage.textContent = 'Bitte geben Sie eine gültige E-Mail-Adresse ein.';
+      return;
+    }
+    resetPwMessage.style.color = 'var(--success)';
+    resetPwMessage.textContent = 'Falls eine gültige E-Mail-Adresse eingegeben wurde, wurde eine Mail zum Zurücksetzen versendet.';
+    setTimeout(() => {
+      resetPwContainer.classList.add('hidden');
+    }, 2500);
+  });
+}
 
 function showFeedback(message, type = 'success') {
   feedback.textContent = message;
