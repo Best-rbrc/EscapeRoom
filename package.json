@@ -1,0 +1,22 @@
+{
+  "name": "nimbusdrive-escape-room",
+  "version": "1.0.0",
+  "description": "NimbusDrive Escape Room Demo mit OpenAI Real-Time API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": ["escape-room", "openai", "realtime", "demo"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.14.2",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
