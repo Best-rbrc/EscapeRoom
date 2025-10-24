@@ -117,31 +117,35 @@ loginForm.addEventListener('submit', (event) => {
   const username = usernameInput.value.trim();
   const password = passwordInput.value.trim();
 
-  const hasValidCombination = username === VALID_USERNAME && password === VALID_PASSWORD;
+  // Benutzername muss IMMER korrekt sein
+  const usernameIsCorrect = username === VALID_USERNAME;
+  const hasValidCombination = usernameIsCorrect && password === VALID_PASSWORD;
   const passwordInjection = isSqlInjectionAttempt(password);
-  const usernameInjection = isSqlInjectionAttempt(username);
-  const usernameContainsValid = username.toLowerCase().includes(VALID_USERNAME.toLowerCase());
 
   // Debug logs
   console.log('Username:', username);
   console.log('Password:', password);
-  console.log('usernameInjection:', usernameInjection);
+  console.log('usernameIsCorrect:', usernameIsCorrect);
   console.log('passwordInjection:', passwordInjection);
-  console.log('usernameContainsValid:', usernameContainsValid);
 
-  if (hasValidCombination || passwordInjection || (usernameInjection && usernameContainsValid)) {
+  // Login ist nur erfolgreich wenn:
+  // 1. Benutzername korrekt UND Passwort korrekt ODER
+  // 2. Benutzername korrekt UND SQL-Injection im Passwort
+  if (usernameIsCorrect && (password === VALID_PASSWORD || passwordInjection)) {
     let reason = 'Login erfolgreich. Willkommen zurück!';
     
     if (passwordInjection) {
       reason = 'Login erfolgreich (SQL-Injection im Passwort erkannt). Sicherheitslücke ausgenutzt!';
-    } else if (usernameInjection && usernameContainsValid) {
-      reason = 'Login erfolgreich (SQL-Injection im Benutzernamen erkannt). Clevere Technik!';
     }
     
     showFeedback(reason, 'success');
     setTimeout(showFileExplorer, 650);
   } else {
-    showFeedback('Login fehlgeschlagen. Bitte Zugangsdaten prüfen.', 'error');
+    if (!usernameIsCorrect) {
+      showFeedback('Login fehlgeschlagen. Benutzername ist nicht korrekt.', 'error');
+    } else {
+      showFeedback('Login fehlgeschlagen. Passwort ist nicht korrekt.', 'error');
+    }
   }
 });
 
